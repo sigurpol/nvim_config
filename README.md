@@ -25,10 +25,9 @@ enablement to avoid a second Rust client.
 - `<leader>as` opens the Snacks-backed Sidekick CLI selector for tools such as
   opencode, Claude, Gemini, and Codex.
 - `<leader>sr` opens Grug Far for project search and replace.
-- `<leader>cp` toggles Markdown Preview in Markdown buffers.
 - `<leader>gY` copies a GitHub-style permalink for the current file or
   selection.
-- `<leader>lg` opens LazyGit at the current Git root.
+- `<leader>gg` opens LazyGit at the current Git root.
 - `<leader>xx` opens Trouble diagnostics.
 - ``<C-`>`` toggles a Snacks terminal at the current Git root.
 - Git integration uses `gitsigns.nvim`, `vim-fugitive`, `diffview.nvim`, and
