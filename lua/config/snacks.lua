@@ -303,7 +303,7 @@ map("n", "<leader>un", function()
   Snacks.notifier.hide()
 end, "Dismiss notifications")
 
-local function terminal_root()
+local function git_root()
   local file = vim.api.nvim_buf_get_name(0)
   local cwd = file ~= "" and vim.fn.fnamemodify(file, ":h") or vim.fn.getcwd()
   local root = vim.fn.system({ "git", "-C", cwd, "rev-parse", "--show-toplevel" })
@@ -311,8 +311,12 @@ local function terminal_root()
   return vim.v.shell_error == 0 and vim.trim(root) or vim.fn.getcwd()
 end
 
+map("n", "<leader>e", function()
+  Snacks.explorer({ cwd = git_root() })
+end, "Explorer (toggle)")
+
 map({ "n", "t" }, "<C-`>", function()
-  Snacks.terminal.focus(nil, { cwd = terminal_root() })
+  Snacks.terminal.focus(nil, { cwd = git_root() })
 end, "Terminal")
 
 map("n", "<c-/>", function()
