@@ -66,6 +66,7 @@ if ok_gitsigns then
 end
 
 -- map("n", "<leader>gs", "<cmd>Git<cr>", "Git status")
+map("n", "<leader>gb", "<cmd>Git blame<cr>", "Git commit")
 map("n", "<leader>gc", "<cmd>Git commit<cr>", "Git commit")
 map("n", "<leader>gP", "<cmd>Git push<cr>", "Git push")
 map("n", "<leader>gp", "<cmd>Git pull<cr>", "Git pull")
@@ -98,7 +99,7 @@ local function snacks_picker(name, fallback)
   end
 end
 
-map("n", "<leader>gb", snacks_picker("git_branches"), "Git branches")
+map("n", "<leader>gB", snacks_picker("git_branches"), "Git branches")
 map("n", "<leader>gd", snacks_picker("git_diff", "DiffviewOpen"), "Git diff")
 map("n", "<leader>gf", snacks_picker("git_log_file", "DiffviewFileHistory %"), "Git file history")
 map("n", "<leader>gl", snacks_picker("git_log"), "Git log")
