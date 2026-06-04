@@ -1,4 +1,4 @@
-# nvim + vim.pack
+# Neovim configuration  via `vim.pack`
 
 Neovim profile using the built-in `vim.pack` plugin manager from
 Neovim 0.12.
