@@ -6,7 +6,7 @@ local function expand_macro()
   end
 
   local client = clients[1]
-  client.request(
+  client:request(
     "rust-analyzer/expandMacro",
     vim.lsp.util.make_position_params(0, client.offset_encoding),
     function(err, result)
