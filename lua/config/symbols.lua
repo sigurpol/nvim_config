@@ -1,6 +1,6 @@
 -- Native symbol navigation/statusline glue.
 -- Neovim exposes LSP document symbols via gO, but not ]f/[f motions or a
--- current-symbol statusline item, so this fills those gaps without extra plugins.
+-- current-symbol statusline item, so this fills the motion gap without extra plugins.
 local M = {}
 
 local symbol_kind = vim.lsp.protocol.SymbolKind
@@ -9,8 +9,6 @@ local function_kinds = {
   [symbol_kind.Method] = true,
   [symbol_kind.Constructor] = true,
 }
-
-local trouble_symbols
 
 local function clients_with_symbols(bufnr)
   return vim.tbl_filter(function(client)
@@ -180,22 +178,6 @@ map("[F", function()
   jump_function(-1, true)
 end, "Previous function end")
 
-local function setup_trouble_symbols()
-  local ok, trouble = pcall(require, "trouble")
-  if not ok or not trouble.statusline then
-    return
-  end
-
-  trouble_symbols = trouble.statusline({
-    mode = "symbols",
-    groups = {},
-    title = false,
-    filter = { range = true },
-    format = "{kind_icon}{symbol.name:Normal}",
-    hl_group = "StatusLine",
-  })
-end
-
 function M.statusline()
   local parts = {
     "%<%f %h%w%m%r",
@@ -208,16 +190,10 @@ function M.statusline()
 
   parts[#parts + 1] = "%="
 
-  if vim.b.trouble_lualine ~= false and trouble_symbols and trouble_symbols.has() then
-    parts[#parts + 1] = " " .. trouble_symbols.get()
-  end
-
   parts[#parts + 1] = " %y %-14.(%l,%c%V%) %P"
 
   return table.concat(parts, "")
 end
-
-setup_trouble_symbols()
 
 vim.o.statusline = "%!v:lua.require'config.symbols'.statusline()"
 

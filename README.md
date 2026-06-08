@@ -28,7 +28,7 @@ enablement to avoid a second Rust client.
 - `<leader>gY` copies a GitHub-style permalink for the current file or
   selection.
 - `<leader>gg` opens LazyGit at the current Git root.
-- `<leader>xx` opens Trouble diagnostics.
+- `<leader>xx` opens all diagnostics in the quickfix list.
 - ``<C-`>`` toggles a Snacks terminal at the current Git root.
 - Git integration uses `gitsigns.nvim`, `vim-fugitive`, `diffview.nvim`, and
   Snacks git pickers.
