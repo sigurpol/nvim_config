@@ -7,7 +7,6 @@ if vim.fn.has("nvim-0.12") == 0 or vim.pack == nil then
 end
 
 require("config.options")
-require("config.keymaps")
 require("config.rust")
 require("config.plugins")
 require("config.colorscheme")
