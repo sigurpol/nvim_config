@@ -32,8 +32,8 @@ enablement to avoid a second Rust client.
 - ``<C-`>`` toggles a Snacks terminal at the current Git root.
 - Git integration uses `gitsigns.nvim`, `vim-fugitive`, `diffview.nvim`, and
   Snacks git pickers.
-- Sessions are saved with `persistence.nvim`. On an empty startup, Snacks
-  dashboard opens and `s` restores the session for the current directory.
+- Sessions are saved with native `:mksession` files. On an empty startup,
+  Snacks dashboard opens and `s` restores the session for the current directory.
 
 
 ### Update plugins

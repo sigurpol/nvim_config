@@ -17,7 +17,7 @@ sigurpol's nvim
         { key = "g", desc = "Find Text",       action = ":lua Snacks.dashboard.pick('grep')" },
         { key = "r", desc = "Recent Files",    action = ":lua Snacks.dashboard.pick('recent')" },
         { key = "c", desc = "Config",          action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-        { key = "s", desc = "Restore Session", action = ":lua require('persistence').load()" },
+        { key = "s", desc = "Restore Session", action = ":lua require('config.session').load()" },
         { key = "q", desc = "Quit",            action = ":qa" },
       },
     },
@@ -254,7 +254,13 @@ map({ "n", "x" }, "<leader>sr", function()
 end, "Search and replace")
 
 map("n", "<leader>su", function()
-  Snacks.picker.undo()
+  local ok, err = pcall(vim.cmd.packadd, "nvim.undotree")
+  if not ok then
+    vim.notify(err, vim.log.levels.ERROR)
+    return
+  end
+
+  vim.cmd.Undotree()
 end, "Undo history")
 
 map("n", "<leader>uC", function()

@@ -29,7 +29,6 @@ vim.pack.add({
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/iamcco/markdown-preview.nvim" },
-  { src = "https://github.com/folke/persistence.nvim" },
   { src = "https://github.com/folke/sidekick.nvim" },
   { src = "https://github.com/folke/trouble.nvim" },
   { src = "https://github.com/MagicDuck/grug-far.nvim" },
