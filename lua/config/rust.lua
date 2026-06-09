@@ -1,3 +1,10 @@
+local function client_request(client, method, params, handler)
+  local request = client.request
+    --[[@as fun(self: vim.lsp.Client, method: string, params: table?, handler: lsp.Handler, bufnr?: integer): boolean, integer?]]
+
+  return request(client, method, params, handler, 0)
+end
+
 local function expand_macro()
   local clients = vim.lsp.get_clients({ bufnr = 0, name = "rust-analyzer" })
   if #clients == 0 then
@@ -6,7 +13,9 @@ local function expand_macro()
   end
 
   local client = clients[1]
-  client:request(
+
+  client_request(
+    client,
     "rust-analyzer/expandMacro",
     vim.lsp.util.make_position_params(0, client.offset_encoding),
     function(err, result)
