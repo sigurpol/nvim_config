@@ -23,7 +23,7 @@ local function terminal_window()
   end
 end
 
-local function hide_terminal_window(win)
+local function hide_window(win, buf)
   if not win or not vim.api.nvim_win_is_valid(win) then
     return
   end
@@ -36,11 +36,29 @@ local function hide_terminal_window(win)
   vim.api.nvim_set_current_win(win)
 
   local alternate = vim.fn.bufnr("#")
-  if alternate > 0 and alternate ~= terminal_buf and vim.api.nvim_buf_is_valid(alternate) then
+  if alternate > 0 and alternate ~= buf and vim.api.nvim_buf_is_valid(alternate) then
     vim.api.nvim_win_set_buf(win, alternate)
   else
     vim.cmd.enew()
   end
+end
+
+local function cleanup_job_buffer(buf)
+  vim.schedule(function()
+    if not vim.api.nvim_buf_is_valid(buf) then
+      return
+    end
+
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      if vim.api.nvim_win_get_buf(win) == buf then
+        hide_window(win, buf)
+      end
+    end
+
+    if vim.api.nvim_buf_is_valid(buf) then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end)
 end
 
 local function cleanup_terminal_buffer(buf, job)
@@ -51,7 +69,7 @@ local function cleanup_terminal_buffer(buf, job)
 
     for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
       if vim.api.nvim_win_get_buf(win) == buf then
-        hide_terminal_window(win)
+        hide_window(win, buf)
       end
     end
 
@@ -90,6 +108,35 @@ local function create_terminal_buffer()
   })
 end
 
+local function create_command_buffer(command, opts)
+  opts = opts or {}
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_win_set_buf(0, buf)
+  vim.bo[buf].bufhidden = "wipe"
+  vim.bo[buf].buflisted = false
+  vim.bo[buf].swapfile = false
+
+  local job = vim.fn.jobstart(command, {
+    cwd = opts.cwd,
+    term = true,
+    on_exit = function()
+      cleanup_job_buffer(buf)
+    end,
+  })
+
+  if job <= 0 then
+    cleanup_job_buffer(buf)
+    vim.notify("Failed to start terminal command: " .. vim.inspect(command), vim.log.levels.ERROR)
+    return
+  end
+
+  vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], {
+    buffer = buf,
+    desc = "Terminal normal mode",
+  })
+end
+
 local function open_terminal_window()
   vim.cmd("botright split")
   vim.api.nvim_win_set_height(0, terminal_height())
@@ -104,11 +151,23 @@ end
 function M.toggle()
   local win = terminal_window()
   if win then
-    hide_terminal_window(win)
+    hide_window(win, terminal_buf)
     return
   end
 
   open_terminal_window()
+  vim.cmd.startinsert()
+end
+
+function M.run(command, opts)
+  local win = terminal_window()
+  if win then
+    hide_window(win, terminal_buf)
+  end
+
+  vim.cmd("botright split")
+  vim.api.nvim_win_set_height(0, terminal_height())
+  create_command_buffer(command, opts)
   vim.cmd.startinsert()
 end
 

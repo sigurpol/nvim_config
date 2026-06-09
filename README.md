@@ -30,8 +30,7 @@ enablement to avoid a second Rust client.
 - `<leader>gg` opens LazyGit at the current Git root.
 - `<leader>xx` opens all diagnostics in the quickfix list.
 - ``<C-`>`` opens a native terminal split at the current Git root.
-- Git integration uses `gitsigns.nvim`, `vim-fugitive`, `diffview.nvim`, and
-  Snacks git pickers.
+- Git integration uses `gitsigns.nvim`, `vim-fugitive`, and `diffview.nvim`.
 - Sessions are saved with native `:mksession` files. On an empty startup,
   Snacks dashboard opens and `s` restores the session for the current directory.
 

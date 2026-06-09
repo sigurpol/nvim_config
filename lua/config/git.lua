@@ -28,5 +28,5 @@ local function git_root()
 end
 
 map("n", "<leader>gg", function()
-  Snacks.lazygit({ cwd = git_root() })
+  require("config.terminal").run({ "lazygit" }, { cwd = git_root() })
 end, "Lazygit")
