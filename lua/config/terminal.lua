@@ -76,8 +76,9 @@ local function create_terminal_buffer()
   vim.bo[terminal_buf].swapfile = false
 
   local buf = terminal_buf
-  terminal_job = vim.fn.termopen(vim.o.shell, {
+  terminal_job = vim.fn.jobstart(vim.o.shell, {
     cwd = git_root(),
+    term = true,
     on_exit = function(job)
       cleanup_terminal_buffer(buf, job)
     end,
