@@ -61,7 +61,6 @@ sigurpol's nvim
   quickfile = { enabled = true },
   scope = { enabled = true },
   statuscolumn = { enabled = true },
-  terminal = { enabled = true },
   words = { enabled = true },
 })
 
@@ -320,18 +319,6 @@ end
 map("n", "<leader>e", function()
   Snacks.explorer({ cwd = git_root() })
 end, "Explorer (toggle)")
-
-map({ "n", "t" }, "<C-`>", function()
-  Snacks.terminal.focus(nil, { cwd = git_root() })
-end, "Terminal")
-
-map("n", "<c-/>", function()
-  Snacks.terminal()
-end, "Toggle terminal")
-
-map("n", "<c-_>", function()
-  Snacks.terminal()
-end, "Toggle terminal")
 
 map({ "n", "t" }, "]]", function()
   Snacks.words.jump(vim.v.count1)
