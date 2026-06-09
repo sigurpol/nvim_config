@@ -32,21 +32,8 @@ local function loclist_diagnostics()
   command("lopen")()
 end
 
-local function picker(name, fallback)
-  return function()
-    if Snacks and Snacks.picker and Snacks.picker[name] then
-      Snacks.picker[name]()
-      return
-    end
-
-    fallback()
-  end
-end
-
 map("n", "<leader>xx", quickfix_diagnostics, "Diagnostics")
 map("n", "<leader>xX", loclist_diagnostics, "Buffer diagnostics")
-map("n", "<leader>cs", picker("lsp_symbols", vim.lsp.buf.document_symbol), "Document symbols")
-map("n", "<leader>cS", picker("lsp_workspace_symbols", vim.lsp.buf.workspace_symbol), "Workspace symbols")
 map("n", "<leader>xQ", quickfix_diagnostics, "Diagnostics quickfix")
 map("n", "<leader>xL", loclist_diagnostics, "Diagnostics location list")
 
