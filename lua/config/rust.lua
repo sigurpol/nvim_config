@@ -1,6 +1,6 @@
 local function client_request(client, method, params, handler)
   local request = client.request
-    --[[@as fun(self: vim.lsp.Client, method: string, params: table?, handler: lsp.Handler, bufnr?: integer): boolean, integer?]]
+  --[[@as fun(self: vim.lsp.Client, method: string, params: table?, handler: lsp.Handler, bufnr?: integer): boolean, integer?]]
 
   return request(client, method, params, handler, 0)
 end
@@ -73,6 +73,7 @@ vim.lsp.config("rust_analyzer", {
       cargo = {
         extraEnv = {
           SKIP_WASM_BUILD = "1",
+          CARGO_INCREMENTAL = "0", -- stop RA from writing the incremental cache
         },
         features = "all",
       },
