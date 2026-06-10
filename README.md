@@ -16,8 +16,8 @@ LSP configuration uses Neovim's native
 `vim.lsp.config()` and `vim.lsp.enable()` APIs without Mason or
 `nvim-lspconfig`; language server binaries must be installed separately.
 
-In particular, Rust is configured through `rustaceanvim`, so `rust-analyzer` should be available on `PATH`
-through Rustup or your system package manager.
+In particular, Rust is configured through native `vim.lsp.config("rust_analyzer", ...)`, so `rust-analyzer`
+should be available on `PATH` through Rustup or your system package manager.
 Same for lua-language-server, yaml-language-server or any other LSP you might want to add.
 
 On Ubuntu, install the LSP binaries used by this config with:
@@ -69,7 +69,8 @@ rust-analyzer --version
 - `<leader>gg` opens LazyGit at the current Git root.
 - `<leader>xx` opens all diagnostics in the quickfix list.
 - ``<C-`>`` opens a native terminal split at the current Git root.
-- Git integration uses `gitsigns.nvim`, `vim-fugitive`, and `diffview.nvim`.
+- Git integration uses `gitsigns.nvim` and `vim-fugitive`; diffs and file
+  history go through fugitive (`:Gvdiffsplit`, `:0Gclog`).
 - Sessions are saved with native `:mksession` files. On an empty startup,
   Snacks dashboard opens and `s` restores the session for the current directory.
 

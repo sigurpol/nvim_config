@@ -6,7 +6,7 @@ local function client_request(client, method, params, handler)
 end
 
 local function expand_macro()
-  local clients = vim.lsp.get_clients({ bufnr = 0, name = "rust-analyzer" })
+  local clients = vim.lsp.get_clients({ bufnr = 0, name = "rust_analyzer" })
   if #clients == 0 then
     vim.notify("rust-analyzer not attached", vim.log.levels.ERROR)
     return
@@ -58,40 +58,44 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.g.rustaceanvim = {
-  server = {
-    default_settings = {
-      ["rust-analyzer"] = {
-        cargo = {
-          extraEnv = {
-            SKIP_WASM_BUILD = "1",
-          },
-          features = "all",
+vim.lsp.config("rust_analyzer", {
+  cmd = { "rust-analyzer" },
+  -- CHALK_* are read by the rust-analyzer process itself, so they go in the
+  -- spawn environment, not in settings (rustaceanvim's server.extraEnv was a
+  -- client-side launch hint with no native settings equivalent).
+  cmd_env = {
+    CHALK_OVERFLOW_DEPTH = "100000000",
+    CHALK_SOLVER_MAX_SIZE = "100000000",
+  },
+  filetypes = { "rust" },
+  root_markers = { "Cargo.toml", "rust-project.json", ".git" },
+  settings = {
+    ["rust-analyzer"] = {
+      cargo = {
+        extraEnv = {
+          SKIP_WASM_BUILD = "1",
         },
-        diagnostics = {
-          disabled = { "macro-error" },
+        features = "all",
+      },
+      diagnostics = {
+        disabled = { "macro-error" },
+      },
+      procMacro = {
+        ignored = {
+          ["async-recursion"] = { "async_recursion" },
+          ["async-std"] = { "async_std" },
+          ["async-trait"] = { "async_trait" },
+          ["napi-derive"] = { "napi" },
         },
-        procMacro = {
-          ignored = {
-            ["async-recursion"] = { "async_recursion" },
-            ["async-std"] = { "async_std" },
-            ["async-trait"] = { "async_trait" },
-            ["napi-derive"] = { "napi" },
-          },
-        },
-        rust = {
-          analyzerTargetDir = "target/rust-analyzer",
-        },
-        rustfmt = {
-          extraArgs = { "+nightly" },
-        },
-        server = {
-          extraEnv = {
-            CHALK_OVERFLOW_DEPTH = "100000000",
-            CHALK_SOLVER_MAX_SIZE = "100000000",
-          },
-        },
+      },
+      rust = {
+        analyzerTargetDir = "target/rust-analyzer",
+      },
+      rustfmt = {
+        extraArgs = { "+nightly" },
       },
     },
   },
-}
+})
+
+vim.lsp.enable("rust_analyzer")

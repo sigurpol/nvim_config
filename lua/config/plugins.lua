@@ -22,7 +22,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
 vim.pack.add({
   { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
   { src = "https://github.com/folke/which-key.nvim" },
-  { src = "https://github.com/mrcjkb/rustaceanvim" },
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/iamcco/markdown-preview.nvim" },
@@ -31,10 +30,6 @@ vim.pack.add({
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/tpope/vim-fugitive" },
-  { src = "https://github.com/sindrets/diffview.nvim" },
-  -- { src = "https://github.com/nvim-neotest/neotest" },
-  { src = "https://github.com/nvim-lua/plenary.nvim" },
-  -- { src = "https://github.com/nvim-neotest/nvim-nio" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
 }, {
   confirm = false,
