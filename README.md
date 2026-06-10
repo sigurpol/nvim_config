@@ -31,10 +31,13 @@ lua_ls_url="$(
     grep -oE 'https://[^"]+linux-x64\.tar\.gz' |
     head -n 1
 )"
-sudo rm -rf /opt/lua-language-server
-sudo mkdir -p /opt/lua-language-server
-curl -fL "$lua_ls_url" | sudo tar -xz -C /opt/lua-language-server
-printf '%s\n' '#!/bin/sh' 'exec /opt/lua-language-server/bin/lua-language-server "$@"' |
+# Install to a user-writable dir: under root-owned /opt the server cannot create
+# its log/cache dir at runtime and crashes before initializing.
+lua_ls_dir="${XDG_DATA_HOME:-$HOME/.local/share}/lua-language-server"
+rm -rf "$lua_ls_dir"
+mkdir -p "$lua_ls_dir"
+curl -fL "$lua_ls_url" | tar -xz -C "$lua_ls_dir"
+printf '%s\n' '#!/bin/sh' "exec \"$lua_ls_dir/bin/lua-language-server\" \"\$@\"" |
   sudo tee /usr/local/bin/lua-language-server >/dev/null
 sudo chmod +x /usr/local/bin/lua-language-server
 
