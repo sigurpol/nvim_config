@@ -1,7 +1,8 @@
 # Neovim configuration  via `vim.pack`
 
-Neovim profile using the built-in `vim.pack` plugin manager from
-Neovim 0.12.
+Neovim profile using the built-in `vim.pack` plugin manager from Neovim 0.12.
+Plugin maintenance uses the built-in `:packupdate` and `:packdel` commands from
+Neovim 0.13.
 
 ### Installation
 
@@ -37,44 +38,14 @@ enablement to avoid a second Rust client.
 
 ### Update plugins
 
-I am using a `fish` function
+Neovim 0.13 ships the package maintenance commands needed for this profile, so
+no shell wrapper is required.
 
-```bash
-function nvpack-update --description "Update all native Neovim packages (including detached HEADs)"
-    set -l pack_dir ~/.local/share/nvim/site/pack/
-
-    if not test -d $pack_dir
-        echo (set_color red)"Error: Neovim pack directory not found at $pack_dir"(set_color normal)
-        return 1
-    end
-
-    echo (set_color blue)"Checking for plugin updates..."(set_color normal)
-
-    # Find all directories containing a .git folder
-    find $pack_dir -type d -name ".git" | while read -l git_dir
-        set -l plugin_dir (dirname $git_dir)
-        set -l plugin_name (basename $plugin_dir)
-
-        echo (set_color yellow)"Updating $plugin_name..."(set_color normal)
-
-        # Move into the plugin directory safely
-        builtin cd $plugin_dir
-
-        # 1. Fetch latest changes from the remote server
-        if git fetch --all --tags --prune > /dev/null 2>&1
-            # 2. Force the plugin to sync with the remote's default branch (main/master)
-            # This cleanly handles the "detached HEAD" issue without needing to know the branch name.
-            if git reset --hard origin/HEAD > /dev/null 2>&1
-                echo (set_color green)"  ✔ Success"(set_color normal)
-            else
-                echo (set_color red)"  ❌ Failed to reset to remote branch"(set_color normal)
-            end
-        else
-            echo (set_color red)"  ❌ Failed to fetch updates"(set_color normal)
-        end
-    end
-
-    echo (set_color green)"✔ All packages updated!"(set_color normal)
-    echo (set_color magenta)"Remember to run ':helptags ALL' inside Neovim."(set_color normal)
-end
+```vim
+:packupdate
+:packdel ++all
 ```
+
+Use `:packupdate ++lockfile` after pulling lockfile changes from another
+machine. To remove plugins, delete their specs from `vim.pack.add()`, restart
+Neovim, then run `:packdel ++all` to clean up inactive packages.
