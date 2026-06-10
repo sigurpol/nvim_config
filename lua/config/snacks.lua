@@ -3,6 +3,18 @@ if not ok then
   return
 end
 
+local function startup_time()
+  local ms = vim.g.nvim_startup_ms or ((vim.uv.hrtime() - vim.g.nvim_start_ns) / 1e6)
+
+  return {
+    align = "center",
+    text = {
+      { "Neovim loaded in ", hl = "footer" },
+      { ("%.1fms"):format(ms), hl = "special" },
+    },
+  }
+end
+
 snacks.setup({
   bigfile = { enabled = true },
   dashboard = {
@@ -29,6 +41,7 @@ snacks.setup({
     sections = {
       { section = "header" },
       { section = "keys",  gap = 1, padding = 1 },
+      startup_time,
     },
   },
   explorer = { enabled = true },
