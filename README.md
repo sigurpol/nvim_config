@@ -38,7 +38,7 @@ printf '%s\n' '#!/bin/sh' 'exec /opt/lua-language-server/bin/lua-language-server
   sudo tee /usr/local/bin/lua-language-server >/dev/null
 sudo chmod +x /usr/local/bin/lua-language-server
 
-sudo npm install -g yaml-language-server
+npm install -g yaml-language-server
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 . "$HOME/.cargo/env"
@@ -86,4 +86,4 @@ no shell wrapper is required.
 
 Use `:packupdate ++lockfile` after pulling lockfile changes from another
 machine. To remove plugins, delete their specs from `vim.pack.add()`, restart
-Neovim, then run `:packdel ++all` to clean up inactive packages.
+Neovim via `:restart`, then run `:packdel ++all` to clean up inactive packages.
