@@ -9,10 +9,7 @@ vim.diagnostic.config({
   signs = true,
   underline = true,
   update_in_insert = false,
-  virtual_text = {
-    source = "if_many",
-    spacing = 4,
-  },
+  virtual_lines = { current_line = true },
 })
 
 local function map(bufnr, mode, lhs, rhs, desc, opts)
@@ -53,7 +50,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.lsp.config("lua_ls", {
-  cmd = { "lua-language-server" },
+  -- Redirect log/cache to a writable dir; the binary lives under root-owned /opt
+  -- and otherwise crashes on startup trying to create its cache there.
+  cmd = {
+    "lua-language-server",
+    "--logpath=" .. vim.fn.stdpath("cache") .. "/lua-language-server/log",
+    "--metapath=" .. vim.fn.stdpath("cache") .. "/lua-language-server/meta",
+  },
   filetypes = { "lua" },
   root_markers = {
     { ".emmyrc.json", ".luarc.json", ".luarc.jsonc" },
@@ -145,6 +148,7 @@ vim.lsp.config("harper_ls", {
       signs = true,
       underline = true,
       virtual_text = false,
+      virtual_lines = false,
     }, ns)
   end,
   settings = {

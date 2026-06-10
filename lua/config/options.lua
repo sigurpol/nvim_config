@@ -15,6 +15,8 @@ opt.shiftwidth = 2
 opt.softtabstop = 2
 opt.swapfile = false
 opt.termguicolors = true
+opt.winborder = "rounded"
+opt.wildoptions:append("fuzzy")
 
 -- wrap and spell in text filetypes
 vim.api.nvim_create_autocmd("FileType", {

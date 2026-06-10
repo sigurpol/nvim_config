@@ -1,45 +1,16 @@
-local ok, conform = pcall(require, "conform")
-if not ok then
-  return
-end
-
-conform.setup({
-  formatters_by_ft = {
-    lua = { "stylua" },
-    rust = { "rustfmt_nightly" },
-    yaml = { "yamlfmt" },
-  },
-  formatters = {
-    rustfmt_nightly = {
-      command = "rustup",
-      args = {
-        "run",
-        "nightly",
-        "rustfmt",
-        "--emit",
-        "stdout",
-      },
-      cwd = require("conform.util").root_file({ "Cargo.toml" }),
-      stdin = true,
-    },
-  },
-  format_on_save = function(bufnr)
-    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+-- Format on save via LSP (rust-analyzer, yamlls, lua_ls, ...).
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function(args)
+    if vim.g.disable_autoformat or vim.b[args.buf].disable_autoformat then
       return
     end
 
-    return {
-      lsp_format = "fallback",
-      timeout_ms = 3000,
-    }
+    vim.lsp.buf.format({ bufnr = args.buf, timeout_ms = 3000 })
   end,
 })
 
 vim.keymap.set({ "n", "v" }, "<leader>cf", function()
-  conform.format({
-    async = true,
-    lsp_format = "fallback",
-  })
+  vim.lsp.buf.format({ async = true })
 end, { desc = "Format" })
 
 vim.api.nvim_create_user_command("FormatDisable", function(args)

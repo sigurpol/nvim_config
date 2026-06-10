@@ -61,8 +61,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.lsp.config("rust_analyzer", {
   cmd = { "rust-analyzer" },
   -- CHALK_* are read by the rust-analyzer process itself, so they go in the
-  -- spawn environment, not in settings (rustaceanvim's server.extraEnv was a
-  -- client-side launch hint with no native settings equivalent).
+  -- spawn environment, not in settings.
   cmd_env = {
     CHALK_OVERFLOW_DEPTH = "100000000",
     CHALK_SOLVER_MAX_SIZE = "100000000",
