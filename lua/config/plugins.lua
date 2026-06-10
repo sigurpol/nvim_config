@@ -21,10 +21,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 
 vim.pack.add({
   { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
-  { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/folke/which-key.nvim" },
-  { src = "https://github.com/mason-org/mason.nvim" },
-  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
   { src = "https://github.com/mrcjkb/rustaceanvim" },
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/folke/snacks.nvim" },

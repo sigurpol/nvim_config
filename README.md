@@ -12,15 +12,53 @@ This profile lives by default at `~/.config/nvim`, stores plugin state under
 
 First startup installs plugins with `vim.pack.add()`.
 
-Rust is configured through `rustaceanvim`, so `rust-analyzer` should be available on `PATH`
-through Rustup or your system. Mason is configured for `lua_ls`, `yamlls`, and
-`harper_ls`; `rust_analyzer` is explicitly excluded from Mason's automatic LSP
-enablement to avoid a second Rust client.
+LSP configuration uses Neovim's native
+`vim.lsp.config()` and `vim.lsp.enable()` APIs without Mason or
+`nvim-lspconfig`; language server binaries must be installed separately.
+
+In particular, Rust is configured through `rustaceanvim`, so `rust-analyzer` should be available on `PATH`
+through Rustup or your system package manager.
+Same for lua-language-server, yaml-language-server or any other LSP you might want to add.
+
+On Ubuntu, install the LSP binaries used by this config with:
+
+```bash
+sudo apt update
+sudo apt install -y curl nodejs npm
+
+lua_ls_url="$(
+  curl -fsSL https://api.github.com/repos/LuaLS/lua-language-server/releases/latest |
+    grep -oE 'https://[^"]+linux-x64\.tar\.gz' |
+    head -n 1
+)"
+sudo rm -rf /opt/lua-language-server
+sudo mkdir -p /opt/lua-language-server
+curl -fL "$lua_ls_url" | sudo tar -xz -C /opt/lua-language-server
+printf '%s\n' '#!/bin/sh' 'exec /opt/lua-language-server/bin/lua-language-server "$@"' |
+  sudo tee /usr/local/bin/lua-language-server >/dev/null
+sudo chmod +x /usr/local/bin/lua-language-server
+
+sudo npm install -g yaml-language-server
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"
+rustup component add rust-analyzer
+cargo install --locked harper-ls
+```
+
+After installation, these commands must be available on `PATH`:
+
+```bash
+lua-language-server --version
+yaml-language-server --version
+harper-ls --version
+rust-analyzer --version
+```
 
 ### Useful defaults (inspired by LazyVim):
 
 - `<leader><space>` opens the Snacks file picker.
-- `gr` opens LSP references, using Snacks when available.
+- `gr` opens LSP references with Neovim's native quickfix list.
 - `which-key.nvim` shows keybinding hints for prefixes such as `g`,
   `<leader>g`, and `<leader>gh`.
 - `<leader>as` opens the Snacks-backed Sidekick CLI selector for tools such as

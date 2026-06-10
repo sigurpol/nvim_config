@@ -15,17 +15,6 @@ vim.diagnostic.config({
   },
 })
 
-local function picker(name, fallback)
-  return function()
-    if Snacks and Snacks.picker and Snacks.picker[name] then
-      Snacks.picker[name]()
-      return
-    end
-
-    fallback()
-  end
-end
-
 local function map(bufnr, mode, lhs, rhs, desc, opts)
   opts = vim.tbl_extend("force", { buffer = bufnr, desc = desc }, opts or {})
   vim.keymap.set(mode, lhs, rhs, opts)
@@ -36,16 +25,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     local bufnr = ev.buf
 
-    map(bufnr, "n", "gd", picker("lsp_definitions", vim.lsp.buf.definition), "Goto definition")
-    map(bufnr, "n", "gD", picker("lsp_declarations", vim.lsp.buf.declaration), "Goto declaration")
-    map(bufnr, "n", "gr", picker("lsp_references", vim.lsp.buf.references), "References", { nowait = true })
-    map(bufnr, "n", "gI", picker("lsp_implementations", vim.lsp.buf.implementation), "Goto implementation")
-    map(bufnr, "n", "gy", picker("lsp_type_definitions", vim.lsp.buf.type_definition), "Goto type definition")
+    map(bufnr, "n", "gd", vim.lsp.buf.definition, "Goto definition")
+    map(bufnr, "n", "gD", vim.lsp.buf.declaration, "Goto declaration")
+    map(bufnr, "n", "gr", vim.lsp.buf.references, "References", { nowait = true })
+    map(bufnr, "n", "gI", vim.lsp.buf.implementation, "Goto implementation")
+    map(bufnr, "n", "gy", vim.lsp.buf.type_definition, "Goto type definition")
     map(bufnr, "n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
     map(bufnr, "n", "<leader>cr", vim.lsp.buf.rename, "Rename")
     map(bufnr, "n", "<leader>cd", vim.diagnostic.open_float, "Line diagnostics")
-    map(bufnr, "n", "<leader>ss", picker("lsp_symbols", vim.lsp.buf.document_symbol), "Document symbols")
-    map(bufnr, "n", "<leader>sS", picker("lsp_workspace_symbols", vim.lsp.buf.workspace_symbol), "Workspace symbols")
+    map(bufnr, "n", "<leader>ss", vim.lsp.buf.document_symbol, "Document symbols")
+    map(bufnr, "n", "<leader>sS", vim.lsp.buf.workspace_symbol, "Workspace symbols")
     map(bufnr, "n", "]d", function()
       vim.diagnostic.jump({ count = 1, float = true })
     end, "Next diagnostic")
@@ -64,11 +53,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.lsp.config("lua_ls", {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  root_markers = {
+    { ".emmyrc.json", ".luarc.json", ".luarc.jsonc" },
+    { ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml" },
+    { ".git" },
+  },
   settings = {
     Lua = {
+      codeLens = { enable = true },
       diagnostics = {
         globals = { "Snacks", "vim" },
       },
+      hint = { enable = true, semicolon = "Disable" },
       runtime = {
         version = "LuaJIT",
       },
@@ -81,18 +79,66 @@ vim.lsp.config("lua_ls", {
 })
 
 vim.lsp.config("yamlls", {
-  filetypes = { "yaml" },
+  cmd = function(dispatchers, config)
+    local cmd = "yaml-language-server"
+    if config and config.root_dir then
+      local local_cmd = vim.fs.joinpath(config.root_dir, "node_modules/.bin", cmd)
+      if vim.fn.executable(local_cmd) == 1 then
+        cmd = local_cmd
+      end
+    end
+
+    return vim.lsp.rpc.start({ cmd, "--stdio" }, dispatchers)
+  end,
+  filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab", "yaml.helm-values" },
+  root_markers = { ".git" },
   settings = {
-    validate = true,
+    redhat = { telemetry = { enabled = false } },
     yaml = {
+      format = { enable = true },
+      validate = true,
       schemas = {
         ["/home/paolo/github/polkadot-sdk/prdoc/schema_user.json"] = "*polkadot-sdk*/**/*.prdoc",
       },
     },
   },
+  on_init = function(client)
+    client.server_capabilities.documentFormattingProvider = true
+  end,
 })
 
 vim.lsp.config("harper_ls", {
+  cmd = { "harper-ls", "--stdio" },
+  filetypes = {
+    "asciidoc",
+    "c",
+    "cpp",
+    "cs",
+    "gitcommit",
+    "go",
+    "html",
+    "java",
+    "javascript",
+    "lua",
+    "markdown",
+    "nix",
+    "python",
+    "ruby",
+    "rust",
+    "swift",
+    "tex",
+    "toml",
+    "typescript",
+    "typescriptreact",
+    "haskell",
+    "cmake",
+    "typst",
+    "php",
+    "dart",
+    "clojure",
+    "sh",
+  },
+  root_markers = { ".harper-dictionary.txt", ".git" },
   on_attach = function(client)
     local ns = vim.lsp.diagnostic.get_namespace(client.id)
     vim.diagnostic.config({
@@ -107,25 +153,6 @@ vim.lsp.config("harper_ls", {
 })
 
 local servers = { "lua_ls", "yamlls", "harper_ls" }
-
-local ok_mason, mason = pcall(require, "mason")
-if ok_mason then
-  mason.setup({
-    ui = {
-      border = "rounded",
-    },
-  })
-end
-
-local ok_mason_lspconfig, mason_lspconfig = pcall(require, "mason-lspconfig")
-if ok_mason_lspconfig then
-  mason_lspconfig.setup({
-    ensure_installed = servers,
-    automatic_enable = {
-      exclude = { "rust_analyzer" },
-    },
-  })
-end
 
 if vim.lsp.enable then
   vim.lsp.enable(servers)
