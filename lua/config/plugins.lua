@@ -32,11 +32,11 @@ vim.pack.add({
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/tpope/vim-fugitive" },
   { src = "https://github.com/sindrets/diffview.nvim" },
-  { src = "https://github.com/nvim-neotest/neotest" },
+  -- { src = "https://github.com/nvim-neotest/neotest" },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
-  { src = "https://github.com/nvim-neotest/nvim-nio" },
+  -- { src = "https://github.com/nvim-neotest/nvim-nio" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
 }, {
   confirm = false,
-  load = true,
+  load = false,
 })

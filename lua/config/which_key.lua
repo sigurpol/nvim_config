@@ -18,7 +18,7 @@ wk.setup({
       { "<leader>gh", group = "hunks" },
       { "<leader>q", group = "quit/session" },
       { "<leader>s", group = "search" },
-      { "<leader>t", group = "test" },
+      -- { "<leader>t", group = "test" },
       { "<leader>w", group = "window", proxy = "<c-w>" },
       { "<leader>x", group = "diagnostics/quickfix" },
       { "[", group = "previous" },
