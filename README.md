@@ -69,9 +69,10 @@ rust-analyzer --version
   `<leader>g`, and `<leader>gh`.
 - `<leader>as` opens the Snacks-backed Sidekick CLI selector for tools such as
   opencode, Claude, Gemini, and Codex.
-- `<leader>sr` prompts for a ripgrep-backed `:grep` pattern; typed `:grep`
-  commands behave like `:grep!` and open the quickfix list for
-  `:cdo`/`:cfdo` workflows.
+- Grep is native ripgrep-into-quickfix: `<leader>/` prompts for a
+  pattern; `<leader>sw` greps the word/selection; `<leader>sB` restricts to open
+  buffers; `<leader>sb` searches lines in the current buffer (`:vimgrep`). All
+  open the quickfix list for `:cnext`/`:cdo`.
 - `<leader>gY` copies a GitHub-style permalink for the current file or
   selection.
 - `<leader>gg` opens LazyGit at the current Git root.

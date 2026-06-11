@@ -86,10 +86,6 @@ local function map(mode, lhs, rhs, desc)
   vim.keymap.set(mode or "n", lhs, rhs, { desc = desc })
 end
 
-map("n", "<leader>/", function()
-  Snacks.picker.grep()
-end, "Grep")
-
 map("n", "<leader>:", function()
   Snacks.picker.command_history()
 end, "Command history")
@@ -150,18 +146,6 @@ map("n", "<leader>sD", function()
   Snacks.picker.diagnostics_buffer()
 end, "Buffer diagnostics")
 
-map("n", "<leader>sg", function()
-  Snacks.picker.grep()
-end, "Grep")
-
-map("n", "<leader>sB", function()
-  Snacks.picker.grep_buffers()
-end, "Grep open buffers")
-
-map({ "n", "x" }, "<leader>sw", function()
-  Snacks.picker.grep_word()
-end, "Word or selection")
-
 map("n", '<leader>s"', function()
   Snacks.picker.registers()
 end, "Registers")
@@ -173,10 +157,6 @@ end, "Search history")
 map("n", "<leader>sa", function()
   Snacks.picker.autocmds()
 end, "Autocmds")
-
-map("n", "<leader>sb", function()
-  Snacks.picker.lines()
-end, "Buffer lines")
 
 map("n", "<leader>sc", function()
   Snacks.picker.command_history()
@@ -225,15 +205,6 @@ end, "Quickfix list")
 map("n", "<leader>sR", function()
   Snacks.picker.resume()
 end, "Resume picker")
-
-map("n", "<leader>sr", function()
-  vim.ui.input({ prompt = "grep: " }, function(pattern)
-    if pattern and pattern ~= "" then
-      vim.cmd.grep({ args = { pattern }, bang = true })
-      vim.cmd.copen()
-    end
-  end)
-end, "Grep")
 
 map("n", "<leader>su", function()
   local ok, err = pcall(vim.cmd.packadd, "nvim.undotree")
