@@ -49,6 +49,45 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- Rename the current file and let LSP servers update references.
+local function rename_file()
+  local old = vim.api.nvim_buf_get_name(0)
+  if old == "" then
+    return
+  end
+
+  vim.ui.input({ prompt = "New path: ", default = old, completion = "file" }, function(new)
+    if not new or new == "" or new == old then
+      return
+    end
+    new = vim.fs.normalize(new)
+
+    local params = {
+      files = { { oldUri = vim.uri_from_fname(old), newUri = vim.uri_from_fname(new) } },
+    }
+    local clients = vim.lsp.get_clients()
+
+    for _, client in ipairs(clients) do
+      if client:supports_method("workspace/willRenameFiles") then
+        local resp = client:request_sync("workspace/willRenameFiles", params, 1000, 0)
+        if resp and resp.result then
+          vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
+        end
+      end
+    end
+
+    vim.lsp.util.rename(old, new)
+
+    for _, client in ipairs(clients) do
+      if client:supports_method("workspace/didRenameFiles") then
+        client:notify("workspace/didRenameFiles", params)
+      end
+    end
+  end)
+end
+
+vim.keymap.set("n", "<leader>cR", rename_file, { desc = "Rename file" })
+
 vim.lsp.config("lua_ls", {
   -- Redirect log/cache to a writable dir; the binary lives under root-owned /opt
   -- and otherwise crashes on startup trying to create its cache there.

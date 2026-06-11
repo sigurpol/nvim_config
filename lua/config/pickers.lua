@@ -23,3 +23,12 @@ end
 map("n", "<leader>sh", open("help"), { desc = "Help pages" })
 map("n", "<leader>sM", open("Man"), { desc = "Man pages" })
 map("n", "<leader>uC", open("colorscheme"), { desc = "Colorschemes" })
+
+-- Plain native list views (no fuzzy equivalent).
+map("n", '<leader>s"', "<cmd>registers<cr>", { desc = "Registers" })
+map("n", "<leader>sa", "<cmd>autocmd<cr>", { desc = "Autocmds" })
+map("n", "<leader>sC", "<cmd>command<cr>", { desc = "Commands" })
+map("n", "<leader>sH", "<cmd>highlight<cr>", { desc = "Highlights" })
+map("n", "<leader>sj", "<cmd>jumps<cr>", { desc = "Jumps" })
+map("n", "<leader>sk", "<cmd>map<cr>", { desc = "Keymaps" })
+map("n", "<leader>sm", "<cmd>marks<cr>", { desc = "Marks" })

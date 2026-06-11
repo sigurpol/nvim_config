@@ -58,7 +58,7 @@ harper-ls --version
 rust-analyzer --version
 ```
 
-### Useful defaults
+### Useful Key Bindings
 
 - The `<leader>f` group uses native cmdline completion:
   `<leader><space>`/`<leader>ff` (files), `<leader>fg` (git-tracked),
@@ -78,8 +78,10 @@ rust-analyzer --version
   pattern; `<leader>sw` greps the word/selection; `<leader>sB` restricts to open
   buffers; `<leader>sb` searches lines in the current buffer (`:vimgrep`). All
   open the quickfix list for `:cnext`/`:cdo`.
-- `<leader>gY` copies a GitHub-style permalink for the current file or
-  selection.
+- `<leader>gB`/`<leader>gY` open the current file/line on GitHub / copy a commit
+  permalink, both via the `gh` CLI (GitHub-only).
+- `<leader>cR` renames the current file via LSP (updates references); the
+  `<leader>s*` registers/marks/jumps/etc. pickers are native `:` list views.
 - `<leader>gg` opens LazyGit at the current Git root.
 - `<leader>xd` opens local (current file) diagnostics in the location list;
   `<leader>xD` puts workspace (all-buffer) diagnostics in the quickfix list.

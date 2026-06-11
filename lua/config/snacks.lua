@@ -134,34 +134,6 @@ if has_sidekick then
   end, "Sidekick select prompt")
 end
 
-map("n", '<leader>s"', function()
-  Snacks.picker.registers()
-end, "Registers")
-
-map("n", "<leader>sa", function()
-  Snacks.picker.autocmds()
-end, "Autocmds")
-
-map("n", "<leader>sC", function()
-  Snacks.picker.commands()
-end, "Commands")
-
-map("n", "<leader>sH", function()
-  Snacks.picker.highlights()
-end, "Highlights")
-
-map("n", "<leader>sj", function()
-  Snacks.picker.jumps()
-end, "Jumps")
-
-map("n", "<leader>sk", function()
-  Snacks.picker.keymaps()
-end, "Keymaps")
-
-map("n", "<leader>sm", function()
-  Snacks.picker.marks()
-end, "Marks")
-
 map("n", "<leader>su", function()
   local ok, err = pcall(vim.cmd.packadd, "nvim.undotree")
   if not ok then
@@ -187,28 +159,6 @@ end, "Toggle scratch buffer")
 map("n", "<leader>S", function()
   Snacks.scratch.select()
 end, "Select scratch buffer")
-
-map("n", "<leader>bd", function()
-  Snacks.bufdelete()
-end, "Delete buffer")
-
-map("n", "<leader>cR", function()
-  Snacks.rename.rename_file()
-end, "Rename file")
-
-map({ "n", "v" }, "<leader>gB", function()
-  Snacks.gitbrowse()
-end, "Git browse")
-
-map({ "n", "v" }, "<leader>gY", function()
-  Snacks.gitbrowse({
-    what = "permalink",
-    open = function(url)
-      vim.fn.setreg("+", url)
-    end,
-    notify = false,
-  })
-end, "Git browse copy permalink")
 
 map("n", "<leader>un", function()
   Snacks.notifier.hide()
