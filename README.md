@@ -87,7 +87,10 @@ rust-analyzer --version
   `<leader>xD` puts workspace (all-buffer) diagnostics in the quickfix list.
 - ``<C-`>`` opens a native terminal split at the current Git root.
 - Git integration uses `gitsigns.nvim` and `vim-fugitive`; diffs and file
-  history go through fugitive (`:Gvdiffsplit`, `:0Gclog`).
+  history go through fugitive (`:Gvdiffsplit`, `:0Gclog`). `]g`/`[g` jump
+  between hunks.
+- File navigation is native: `oil.nvim` on `-` and `<leader>e`, plus netrw
+  (`:Explore`/`:Lexplore`).
 - Sessions are saved with native `:mksession` files. On an empty startup,
   Snacks dashboard opens and `s` restores the session for the current directory.
 

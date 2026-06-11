@@ -8,6 +8,13 @@ if ok_gitsigns then
   gitsigns.setup({
     current_line_blame = true,
   })
+
+  map("n", "]g", function()
+    gitsigns.nav_hunk("next")
+  end, "Next git hunk")
+  map("n", "[g", function()
+    gitsigns.nav_hunk("prev")
+  end, "Previous git hunk")
 end
 
 -- map("n", "<leader>gs", "<cmd>Git<cr>", "Git status")

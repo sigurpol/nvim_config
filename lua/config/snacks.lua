@@ -43,9 +43,6 @@ snacks.setup({
       startup_time,
     },
   },
-  explorer = { enabled = true },
-  indent = { enabled = true },
-  input = { enabled = true },
   picker = {
     enabled = true,
     actions = {
@@ -71,9 +68,7 @@ snacks.setup({
       },
     },
   },
-  scope = { enabled = true },
   statuscolumn = { enabled = true },
-  words = { enabled = true },
 })
 
 local function map(mode, lhs, rhs, desc)
@@ -134,22 +129,3 @@ map("n", "<leader>su", function()
   vim.cmd.Undotree()
 end, "Undo history")
 
-local function git_root()
-  local file = vim.api.nvim_buf_get_name(0)
-  local cwd = file ~= "" and vim.fn.fnamemodify(file, ":h") or vim.fn.getcwd()
-  local root = vim.fn.system({ "git", "-C", cwd, "rev-parse", "--show-toplevel" })
-
-  return vim.v.shell_error == 0 and vim.trim(root) or vim.fn.getcwd()
-end
-
-map("n", "<leader>e", function()
-  Snacks.explorer({ cwd = git_root() })
-end, "Explorer (toggle)")
-
-map({ "n", "t" }, "]]", function()
-  Snacks.words.jump(vim.v.count1)
-end, "Next reference")
-
-map({ "n", "t" }, "[[", function()
-  Snacks.words.jump(-vim.v.count1)
-end, "Previous reference")
