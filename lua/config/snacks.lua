@@ -138,14 +138,6 @@ if has_sidekick then
   end, "Sidekick select prompt")
 end
 
-map("n", "<leader>sd", function()
-  Snacks.picker.diagnostics()
-end, "Diagnostics")
-
-map("n", "<leader>sD", function()
-  Snacks.picker.diagnostics_buffer()
-end, "Buffer diagnostics")
-
 map("n", '<leader>s"', function()
   Snacks.picker.registers()
 end, "Registers")
@@ -186,10 +178,6 @@ map("n", "<leader>sk", function()
   Snacks.picker.keymaps()
 end, "Keymaps")
 
-map("n", "<leader>sl", function()
-  Snacks.picker.loclist()
-end, "Location list")
-
 map("n", "<leader>sm", function()
   Snacks.picker.marks()
 end, "Marks")
@@ -197,10 +185,6 @@ end, "Marks")
 map("n", "<leader>sM", function()
   Snacks.picker.man()
 end, "Man pages")
-
-map("n", "<leader>sq", function()
-  Snacks.picker.qflist()
-end, "Quickfix list")
 
 map("n", "<leader>sR", function()
   Snacks.picker.resume()

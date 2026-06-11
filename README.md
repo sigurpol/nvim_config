@@ -58,7 +58,7 @@ harper-ls --version
 rust-analyzer --version
 ```
 
-### Useful defaults (inspired by LazyVim):
+### Useful defaults
 
 - The `<leader>f` group uses native cmdline completion:
   `<leader><space>`/`<leader>ff` (files), `<leader>fg` (git-tracked),
@@ -76,8 +76,8 @@ rust-analyzer --version
 - `<leader>gY` copies a GitHub-style permalink for the current file or
   selection.
 - `<leader>gg` opens LazyGit at the current Git root.
-- `<leader>xx` opens buffer diagnostics in the location list, keeping quickfix
-  for `:grep` results.
+- `<leader>xd` opens local (current file) diagnostics in the location list;
+  `<leader>xD` puts workspace (all-buffer) diagnostics in the quickfix list.
 - ``<C-`>`` opens a native terminal split at the current Git root.
 - Git integration uses `gitsigns.nvim` and `vim-fugitive`; diffs and file
   history go through fugitive (`:Gvdiffsplit`, `:0Gclog`).
