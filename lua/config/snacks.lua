@@ -258,17 +258,14 @@ map("n", "<leader>sR", function()
   Snacks.picker.resume()
 end, "Resume picker")
 
-map({ "n", "x" }, "<leader>sr", function()
-  local grug = require("grug-far")
-  local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-
-  grug.open({
-    transient = true,
-    prefills = {
-      filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-    },
-  })
-end, "Search and replace")
+map("n", "<leader>sr", function()
+  vim.ui.input({ prompt = "grep: " }, function(pattern)
+    if pattern and pattern ~= "" then
+      vim.cmd.grep({ args = { pattern }, bang = true })
+      vim.cmd.copen()
+    end
+  end)
+end, "Grep")
 
 map("n", "<leader>su", function()
   local ok, err = pcall(vim.cmd.packadd, "nvim.undotree")

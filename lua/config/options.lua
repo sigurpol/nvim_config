@@ -4,10 +4,13 @@ opt.clipboard = "unnamedplus"
 opt.confirm = true
 opt.cursorline = true
 opt.expandtab = true
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep --smart-case --hidden --glob '!.git'"
 opt.laststatus = 3
 opt.linebreak = true
 opt.list = true
 opt.number = true
+opt.path:append("**")
 opt.relativenumber = true
 opt.shiftwidth = 2
 -- opt.signcolumn = "yes"

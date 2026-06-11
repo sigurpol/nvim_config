@@ -22,20 +22,26 @@ local function toggle_loclist()
   command(open and "lclose" or "lopen")()
 end
 
-local function quickfix_diagnostics()
-  vim.diagnostic.setqflist({ open = false, title = "Diagnostics" })
-  command("copen")()
-end
-
 local function loclist_diagnostics()
   vim.diagnostic.setloclist({ open = false, title = "Buffer diagnostics" })
   command("lopen")()
 end
 
-map("n", "<leader>xx", quickfix_diagnostics, "Diagnostics")
+vim.cmd([[
+  cnoreabbrev <expr> grep getcmdtype() ==# ':' && getcmdline() ==# 'grep' ? 'grep!' : 'grep'
+]])
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  pattern = { "grep", "grepadd" },
+  callback = function()
+    command("copen")()
+  end,
+})
+
+map("n", "<leader>xx", loclist_diagnostics, "Diagnostics")
 map("n", "<leader>xX", loclist_diagnostics, "Buffer diagnostics")
-map("n", "<leader>xQ", quickfix_diagnostics, "Diagnostics quickfix")
 map("n", "<leader>xL", loclist_diagnostics, "Diagnostics location list")
+map("n", "<leader>xQ", toggle_quickfix, "Quickfix list")
 
 map("n", "<leader>xl", toggle_loclist, "Location list")
 map("n", "<leader>xq", toggle_quickfix, "Quickfix list")
@@ -47,3 +53,11 @@ end, "Previous quickfix item")
 map("n", "]q", function()
   command("cnext")()
 end, "Next quickfix item")
+
+map("n", "[l", function()
+  command("lprev")()
+end, "Previous location list item")
+
+map("n", "]l", function()
+  command("lnext")()
+end, "Next location list item")

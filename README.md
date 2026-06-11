@@ -66,11 +66,14 @@ rust-analyzer --version
   `<leader>g`, and `<leader>gh`.
 - `<leader>as` opens the Snacks-backed Sidekick CLI selector for tools such as
   opencode, Claude, Gemini, and Codex.
-- `<leader>sr` opens Grug Far for project search and replace.
+- `<leader>sr` prompts for a ripgrep-backed `:grep` pattern; typed `:grep`
+  commands behave like `:grep!` and open the quickfix list for
+  `:cdo`/`:cfdo` workflows.
 - `<leader>gY` copies a GitHub-style permalink for the current file or
   selection.
 - `<leader>gg` opens LazyGit at the current Git root.
-- `<leader>xx` opens all diagnostics in the quickfix list.
+- `<leader>xx` opens buffer diagnostics in the location list, keeping quickfix
+  for `:grep` results.
 - ``<C-`>`` opens a native terminal split at the current Git root.
 - Git integration uses `gitsigns.nvim` and `vim-fugitive`; diffs and file
   history go through fugitive (`:Gvdiffsplit`, `:0Gclog`).
