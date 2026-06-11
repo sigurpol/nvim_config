@@ -16,7 +16,6 @@ local function startup_time()
 end
 
 snacks.setup({
-  bigfile = { enabled = true },
   dashboard = {
     enabled = true,
     preset = {
@@ -47,10 +46,6 @@ snacks.setup({
   explorer = { enabled = true },
   indent = { enabled = true },
   input = { enabled = true },
-  notifier = {
-    enabled = true,
-    timeout = 3000,
-  },
   picker = {
     enabled = true,
     actions = {
@@ -76,7 +71,6 @@ snacks.setup({
       },
     },
   },
-  quickfile = { enabled = true },
   scope = { enabled = true },
   statuscolumn = { enabled = true },
   words = { enabled = true },
@@ -85,10 +79,6 @@ snacks.setup({
 local function map(mode, lhs, rhs, desc)
   vim.keymap.set(mode or "n", lhs, rhs, { desc = desc })
 end
-
-map("n", "<leader>n", function()
-  Snacks.notifier.show_history()
-end, "Notification history")
 
 local has_sidekick, sidekick = pcall(require, "sidekick")
 if has_sidekick then
@@ -144,26 +134,6 @@ map("n", "<leader>su", function()
   vim.cmd.Undotree()
 end, "Undo history")
 
-map("n", "<leader>z", function()
-  Snacks.zen()
-end, "Toggle zen mode")
-
-map("n", "<leader>Z", function()
-  Snacks.zen.zoom()
-end, "Toggle zoom")
-
-map("n", "<leader>.", function()
-  Snacks.scratch()
-end, "Toggle scratch buffer")
-
-map("n", "<leader>S", function()
-  Snacks.scratch.select()
-end, "Select scratch buffer")
-
-map("n", "<leader>un", function()
-  Snacks.notifier.hide()
-end, "Dismiss notifications")
-
 local function git_root()
   local file = vim.api.nvim_buf_get_name(0)
   local cwd = file ~= "" and vim.fn.fnamemodify(file, ":h") or vim.fn.getcwd()
@@ -183,6 +153,3 @@ end, "Next reference")
 map({ "n", "t" }, "[[", function()
   Snacks.words.jump(-vim.v.count1)
 end, "Previous reference")
-
-Snacks.toggle.indent():map("<leader>ug")
-Snacks.toggle.dim():map("<leader>uD")
