@@ -106,7 +106,7 @@ vim.lsp.config("lua_ls", {
     Lua = {
       codeLens = { enable = true },
       diagnostics = {
-        globals = { "Snacks", "vim" },
+        globals = { "vim" },
       },
       hint = { enable = true, semicolon = "Disable" },
       runtime = {

@@ -72,8 +72,8 @@ rust-analyzer --version
 - `gr` opens LSP references with Neovim's native quickfix list.
 - `which-key.nvim` shows keybinding hints for prefixes such as `g`,
   `<leader>g`, and `<leader>gh`.
-- `<leader>as` opens the Snacks-backed Sidekick CLI selector for tools such as
-  opencode, Claude, Gemini, and Codex.
+- `<leader>as` opens the Sidekick CLI selector for tools such as opencode,
+  Claude, Gemini, and Codex (standalone; no Copilot/NES).
 - Grep is native ripgrep-into-quickfix: `<leader>/` prompts for a
   pattern; `<leader>sw` greps the word/selection; `<leader>sB` restricts to open
   buffers; `<leader>sb` searches lines in the current buffer (`:vimgrep`). All
@@ -91,8 +91,9 @@ rust-analyzer --version
   between hunks.
 - File navigation is native: `oil.nvim` on `-`, plus netrw
   (`:Explore`/`:Lexplore`).
-- Sessions are saved with native `:mksession` files. On an empty startup,
-  Snacks dashboard opens and `s` restores the session for the current directory.
+- Startup is empty (no dashboard). Sessions are saved with native `:mksession`
+  files; restore with `<leader>qs` (cwd), `<leader>ql` (last), or `<leader>qS`
+  (pick).
 
 
 ### Update plugins

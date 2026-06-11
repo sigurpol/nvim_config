@@ -1,4 +1,4 @@
--- Native replacements for Snacks cmdline pickers.
+-- Native cmdline pickers and list views.
 local find = require("config.find")
 
 -- Auto-open completion for these commands too. Note: help/colorscheme/man
@@ -33,3 +33,13 @@ map("n", "<leader>sj", "<cmd>jumps<cr>", { desc = "Jumps" })
 map("n", "<leader>sk", "<cmd>map<cr>", { desc = "Keymaps" })
 map("n", "<leader>sm", "<cmd>marks<cr>", { desc = "Marks" })
 map("n", "<leader>n", "<cmd>messages<cr>", { desc = "Messages" })
+
+map("n", "<leader>su", function()
+  local ok, err = pcall(vim.cmd.packadd, "nvim.undotree")
+  if not ok then
+    vim.notify(err, vim.log.levels.ERROR)
+    return
+  end
+
+  vim.cmd.Undotree()
+end, { desc = "Undo history" })
