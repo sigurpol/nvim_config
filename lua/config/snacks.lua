@@ -86,10 +86,6 @@ local function map(mode, lhs, rhs, desc)
   vim.keymap.set(mode or "n", lhs, rhs, { desc = desc })
 end
 
-map("n", "<leader>,", function()
-  Snacks.picker.buffers()
-end, "Buffers")
-
 map("n", "<leader>/", function()
   Snacks.picker.grep()
 end, "Grep")
@@ -97,30 +93,6 @@ end, "Grep")
 map("n", "<leader>:", function()
   Snacks.picker.command_history()
 end, "Command history")
-
-map("n", "<leader>fb", function()
-  Snacks.picker.buffers()
-end, "Buffers")
-
-map("n", "<leader>fc", function()
-  Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
-end, "Find config file")
-
-map("n", "<leader>ff", function()
-  Snacks.picker.files()
-end, "Find files")
-
-map("n", "<leader>fg", function()
-  Snacks.picker.git_files()
-end, "Find git files")
-
-map("n", "<leader>fr", function()
-  Snacks.picker.recent()
-end, "Recent files")
-
-map("n", "<leader>fp", function()
-  Snacks.picker.projects()
-end, "Projects")
 
 map("n", "<leader>n", function()
   Snacks.notifier.show_history()
