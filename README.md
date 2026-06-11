@@ -60,7 +60,8 @@ rust-analyzer --version
 
 ### Useful defaults (inspired by LazyVim):
 
-- `<leader><space>` opens the Snacks file picker.
+- `<leader><space>` starts native `:find` with fuzzy file candidates from
+  `findfunc`; `<leader>ff` keeps the Snacks file picker.
 - `gr` opens LSP references with Neovim's native quickfix list.
 - `which-key.nvim` shows keybinding hints for prefixes such as `g`,
   `<leader>g`, and `<leader>gh`.

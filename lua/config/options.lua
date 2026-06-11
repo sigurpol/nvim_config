@@ -19,7 +19,7 @@ opt.softtabstop = 2
 opt.swapfile = false
 opt.termguicolors = true
 opt.winborder = "rounded"
-opt.wildoptions:append("fuzzy")
+opt.wildoptions:append("fuzzy") -- fuzzy for non-file cmdline completion (commands, options); :find fuzzy comes from findfunc
 
 -- wrap and spell in text filetypes
 vim.api.nvim_create_autocmd("FileType", {

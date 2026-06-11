@@ -86,10 +86,6 @@ local function map(mode, lhs, rhs, desc)
   vim.keymap.set(mode or "n", lhs, rhs, { desc = desc })
 end
 
-map("n", "<leader><space>", function()
-  Snacks.picker.files()
-end, "Find files")
-
 map("n", "<leader>,", function()
   Snacks.picker.buffers()
 end, "Buffers")
