@@ -24,7 +24,7 @@ end
 
 local function relative_to_cwd(root, file)
   local full = vim.fs.joinpath(root, file)
-  return vim.fs.relpath(vim.uv.cwd(), full) or full
+  return vim.fs.relpath(assert(vim.uv.cwd()), full) or full
 end
 
 local function project_files()
@@ -54,7 +54,7 @@ local function project_files()
 end
 
 function M.findfunc(arg)
-  local files = project_files()
+  local files = project_files() or {}
   if arg == "" then
     return files
   end
