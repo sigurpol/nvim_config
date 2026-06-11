@@ -1,7 +1,7 @@
 local ok, oil = pcall(require, "oil")
 if ok then
-  oil.setup({})
+  -- Keep netrw enabled (`:Explore`/`:Lexplore`); oil stays explicit via `-`/`<leader>e`.
+  oil.setup({ default_file_explorer = false })
 end
 
 vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
-vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", { desc = "File explorer (oil)" })

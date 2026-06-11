@@ -89,7 +89,7 @@ rust-analyzer --version
 - Git integration uses `gitsigns.nvim` and `vim-fugitive`; diffs and file
   history go through fugitive (`:Gvdiffsplit`, `:0Gclog`). `]g`/`[g` jump
   between hunks.
-- File navigation is native: `oil.nvim` on `-` and `<leader>e`, plus netrw
+- File navigation is native: `oil.nvim` on `-`, plus netrw
   (`:Explore`/`:Lexplore`).
 - Sessions are saved with native `:mksession` files. On an empty startup,
   Snacks dashboard opens and `s` restores the session for the current directory.
