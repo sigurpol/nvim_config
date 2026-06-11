@@ -64,7 +64,6 @@ snacks.setup({
       },
     },
   },
-  statuscolumn = { enabled = true },
 })
 
 local function map(mode, lhs, rhs, desc)

@@ -13,7 +13,7 @@ opt.number = true
 opt.path:append("**")
 opt.relativenumber = true
 opt.shiftwidth = 2
--- opt.signcolumn = "yes"
+opt.signcolumn = "yes:2" -- room for a git sign and a diagnostic sign on the same line
 -- opt.smoothscroll = true
 opt.softtabstop = 2
 opt.swapfile = false
