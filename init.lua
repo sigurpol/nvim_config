@@ -24,6 +24,8 @@ end
 require("config.options")
 require("config.find")
 require("config.grep")
+require("config.pickers")
+require("config.toggles")
 require("config.rust")
 require("config.plugins")
 require("config.colorscheme")

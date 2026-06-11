@@ -110,14 +110,15 @@ vim.api.nvim_create_autocmd("DirChanged", {
   end,
 })
 
--- Auto-open the completion popup for our pickers once the argument is non-trivial.
-local pickers = { find = true, fin = true, buffer = true, buf = true, b = true }
+-- Commands whose completion popup auto-opens once the argument is non-trivial.
+-- Other modules (see config.pickers) extend this set.
+M.cmdline_commands = { find = true, fin = true, buffer = true, buf = true, b = true }
 
 vim.api.nvim_create_autocmd("CmdlineChanged", {
   pattern = ":",
   callback = function()
     local cmd, arg = vim.fn.getcmdline():match("^(%S+)%s+(.+)$")
-    if cmd and pickers[cmd] and #vim.trim(arg) >= 2 then
+    if cmd and M.cmdline_commands[cmd] and #vim.trim(arg) >= 2 then
       vim.fn.wildtrigger()
     end
   end,
