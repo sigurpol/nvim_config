@@ -3,22 +3,8 @@ local function map(mode, lhs, rhs, desc, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-local ok_gitsigns, gitsigns = pcall(require, "gitsigns")
-if ok_gitsigns then
-  gitsigns.setup({
-    current_line_blame = true,
-  })
-
-  map("n", "]g", function()
-    gitsigns.nav_hunk("next")
-  end, "Next git hunk")
-  map("n", "[g", function()
-    gitsigns.nav_hunk("prev")
-  end, "Previous git hunk")
-end
-
 -- map("n", "<leader>gs", "<cmd>Git<cr>", "Git status")
-map("n", "<leader>gb", "<cmd>Git blame<cr>", "Git commit")
+map("n", "<leader>gb", "<cmd>Git blame<cr>", "Git blame")
 map("n", "<leader>gc", "<cmd>Git commit<cr>", "Git commit")
 map("n", "<leader>gP", "<cmd>Git push<cr>", "Git push")
 map("n", "<leader>gp", "<cmd>Git pull<cr>", "Git pull")

@@ -86,9 +86,10 @@ rust-analyzer --version
 - `<leader>xd` opens local (current file) diagnostics in the location list;
   `<leader>xD` puts workspace (all-buffer) diagnostics in the quickfix list.
 - ``<C-`>`` opens a native terminal split at the current Git root.
-- Git integration uses `gitsigns.nvim` and `vim-fugitive`; diffs and file
-  history go through fugitive (`:Gvdiffsplit`, `:0Gclog`). `]g`/`[g` jump
-  between hunks.
+- Git integration is `vim-fugitive` plus a small native inline blame: the current
+  line's commit shows as dimmed end-of-line virtual text. `<leader>gb` opens the
+  full `:Git blame` split; diffs/history go through fugitive (`:Gvdiffsplit`,
+  `:0Gclog`).
 - File navigation is native: `oil.nvim` on `-`, plus netrw
   (`:Explore`/`:Lexplore`).
 - Startup is empty (no dashboard). Sessions are saved with native `:mksession`
