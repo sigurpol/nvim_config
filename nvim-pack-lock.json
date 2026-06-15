@@ -4,6 +4,10 @@
       "rev": "0303a7208dba448c459767486a38a6ec05c4216b",
       "src": "https://github.com/catppuccin/nvim"
     },
+    "guh.nvim": {
+      "rev": "92ffef63af03b7188b8d11e052eaa3822b59820c",
+      "src": "https://github.com/justinmk/guh.nvim"
+    },
     "markdown-preview.nvim": {
       "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
       "src": "https://github.com/iamcco/markdown-preview.nvim"
