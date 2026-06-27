@@ -90,8 +90,7 @@ rust-analyzer --version
   line's commit shows as dimmed end-of-line virtual text. `<leader>gb` opens the
   full `:Git blame` split; diffs/history go through fugitive (`:Gvdiffsplit`,
   `:0Gclog`).
-- File navigation is native: `oil.nvim` on `-`, plus netrw
-  (`:Explore`/`:Lexplore`).
+- File navigation is native: `dir.lua` on `-` (still in doubt if going back to `oil`...)
 - Startup is empty (no dashboard). Sessions are saved with native `:mksession`
   files; restore with `<leader>qs` (cwd), `<leader>ql` (last), or `<leader>qS`
   (pick).

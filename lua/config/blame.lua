@@ -45,7 +45,7 @@ local function show()
     return
   end
 
-  -- Only blame real on-disk files (skips fugitive://, oil://, unnamed, etc.).
+  -- Only blame real on-disk files (skips fugitive://, unnamed, etc.).
   local file = vim.api.nvim_buf_get_name(buf)
   if file == "" or vim.fn.filereadable(file) == 0 then
     return
