@@ -64,8 +64,6 @@ rust-analyzer --version
   `<leader><space>`/`<leader>ff` (files), `<leader>fg` (git-tracked),
   `<leader>fc` (config) switch the `findfunc` source and open fuzzy `:find`;
   `<leader>fb` opens native fuzzy `:buffer`.
-- `<leader>u*` toggles (spell, wrap, numbers, conceal, background, diagnostics,
-  inlay hints) are native option flips.
 - `gr` opens LSP references with Neovim's native quickfix list.
 - `which-key.nvim` shows keybinding hints for prefixes such as `g`,
   `<leader>g`, and `<leader>gh`.
