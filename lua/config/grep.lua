@@ -8,6 +8,15 @@ local function open_qf()
   end
 end
 
+vim.cmd([[
+  cnoreabbrev <expr> grep getcmdtype() ==# ':' && getcmdline() ==# 'grep' ? 'grep!' : 'grep'
+]])
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  pattern = { "grep", "grepadd" },
+  callback = open_qf,
+})
+
 -- ripgrep (via 'grepprg') into the quickfix list. `pattern` is a regex; `files`,
 -- when given, restricts the search to those paths.
 function M.grep(pattern, files)

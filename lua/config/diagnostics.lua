@@ -32,19 +32,6 @@ local function qflist_diagnostics()
   command("copen")()
 end
 
-vim.cmd([[
-  cnoreabbrev <expr> grep getcmdtype() ==# ':' && getcmdline() ==# 'grep' ? 'grep!' : 'grep'
-]])
-
-vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-  pattern = { "grep", "grepadd" },
-  callback = function()
-    if not vim.tbl_isempty(vim.fn.getqflist()) then
-      command("copen")()
-    end
-  end,
-})
-
 map("n", "<leader>xd", loclist_diagnostics, "File diagnostics")
 map("n", "<leader>xD", qflist_diagnostics, "Workspace diagnostics")
 map("n", "<leader>xQ", toggle_quickfix, "Quickfix list")
