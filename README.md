@@ -64,9 +64,6 @@ rust-analyzer --version
   `<leader><space>`/`<leader>ff` (files), `<leader>fg` (git-tracked),
   `<leader>fc` (config) switch the `findfunc` source and open fuzzy `:find`;
   `<leader>fb` opens native fuzzy `:buffer`.
-- More native cmdline pickers: `<leader>sh` (`:help`), `<leader>sM` (`:Man`),
-  `<leader>uC` (`:colorscheme`) auto-open prefix completion; `<leader>:`/`<leader>sc`
-  open the command-line window (`q:`), `<leader>s/` the search history (`q/`).
 - `<leader>u*` toggles (spell, wrap, numbers, conceal, background, diagnostics,
   inlay hints) are native option flips.
 - `gr` opens LSP references with Neovim's native quickfix list.
