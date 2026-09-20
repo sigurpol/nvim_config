@@ -20,9 +20,10 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 vim.pack.add({
-  { src = "https://github.com/catppuccin/nvim",             name = "catppuccin" },
+  { src = "https://github.com/catppuccin/nvim",                          name = "catppuccin" },
   { src = "https://github.com/folke/which-key.nvim" },
-  { src = "https://github.com/iamcco/markdown-preview.nvim" },
+  { src = "https://github.com/selimacerbas/markdown-preview.nvim" },
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
   { src = "https://github.com/justinmk/guh.nvim" },
   { src = "https://github.com/folke/sidekick.nvim" },
   { src = "https://github.com/tpope/vim-fugitive" },
