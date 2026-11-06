@@ -34,7 +34,6 @@ end
 
 map("n", "<leader>xd", loclist_diagnostics, "File diagnostics")
 map("n", "<leader>xD", qflist_diagnostics, "Workspace diagnostics")
-map("n", "<leader>xQ", toggle_quickfix, "Quickfix list")
 
 map("n", "<leader>xl", toggle_loclist, "Location list")
 map("n", "<leader>xq", toggle_quickfix, "Quickfix list")
