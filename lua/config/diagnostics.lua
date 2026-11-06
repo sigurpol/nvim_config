@@ -38,19 +38,3 @@ map("n", "<leader>xQ", toggle_quickfix, "Quickfix list")
 
 map("n", "<leader>xl", toggle_loclist, "Location list")
 map("n", "<leader>xq", toggle_quickfix, "Quickfix list")
-
-map("n", "[q", function()
-  command("cprev")()
-end, "Previous quickfix item")
-
-map("n", "]q", function()
-  command("cnext")()
-end, "Next quickfix item")
-
-map("n", "[l", function()
-  command("lprev")()
-end, "Previous location list item")
-
-map("n", "]l", function()
-  command("lnext")()
-end, "Next location list item")

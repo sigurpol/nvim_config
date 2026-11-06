@@ -141,6 +141,7 @@ local function buffers()
   vim.fn.feedkeys(":buffer ", "n")
 end
 map("n", "<leader>fb", buffers, { desc = "Buffers" })
+map("n", "-", "<Plug>(nvim-dir-up)", { desc = "Parent directory" })
 map("n", "<leader>,", buffers, { desc = "Buffers" })
 
 return M

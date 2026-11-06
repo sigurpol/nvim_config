@@ -32,12 +32,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map(bufnr, "n", "<leader>cd", vim.diagnostic.open_float, "Line diagnostics")
     map(bufnr, "n", "<leader>ss", vim.lsp.buf.document_symbol, "Document symbols")
     map(bufnr, "n", "<leader>sS", vim.lsp.buf.workspace_symbol, "Workspace symbols")
-    map(bufnr, "n", "]d", function()
-      vim.diagnostic.jump({ count = 1, float = true })
-    end, "Next diagnostic")
-    map(bufnr, "n", "[d", function()
-      vim.diagnostic.jump({ count = -1, float = true })
-    end, "Previous diagnostic")
 
     if client and client:supports_method("textDocument/completion", bufnr) and vim.lsp.completion then
       vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
@@ -197,6 +191,4 @@ vim.lsp.config("harper_ls", {
 
 local servers = { "lua_ls", "yamlls", "harper_ls" }
 
-if vim.lsp.enable then
-  vim.lsp.enable(servers)
-end
+vim.lsp.enable(servers)

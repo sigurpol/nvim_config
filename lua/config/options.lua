@@ -4,7 +4,6 @@ opt.clipboard = "unnamedplus"
 opt.confirm = true
 opt.cursorline = true
 opt.expandtab = true
-opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep --smart-case --hidden --glob '!.git'"
 opt.laststatus = 3
 opt.linebreak = true
@@ -13,11 +12,12 @@ opt.number = true
 opt.path:append("**")
 opt.relativenumber = true
 opt.shiftwidth = 2
-opt.signcolumn = "yes:2" -- room for a git sign and a diagnostic sign on the same line
+opt.signcolumn = "yes"
 -- opt.smoothscroll = true
 opt.softtabstop = 2
 opt.swapfile = false
 opt.termguicolors = true
+opt.updatetime = 250 -- CursorHold drives diagnostic virtual_lines.current_line
 opt.winborder = "rounded"
 opt.wildoptions:append("fuzzy") -- fuzzy for non-file cmdline completion, incl. native :buffer (<leader>fb); :find fuzzy comes from findfunc
 

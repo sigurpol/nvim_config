@@ -171,8 +171,6 @@ function M.run(command, opts)
   vim.cmd.startinsert()
 end
 
-vim.keymap.set({ "n", "t" }, "<C-`>", M.toggle, { desc = "Terminal" })
-vim.keymap.set({ "n", "t" }, "<C-/>", M.toggle, { desc = "Terminal" })
-vim.keymap.set({ "n", "t" }, "<C-_>", M.toggle, { desc = "Terminal" })
+vim.keymap.set({ "n", "t" }, { "<C-`>", "<C-/>", "<C-_>" }, M.toggle, { desc = "Terminal" })
 
 return M

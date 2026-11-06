@@ -8,8 +8,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
       return
     end
 
-    pcall(vim.cmd.helptags, ev.data.path .. "/doc")
-
     if ev.data.spec.name == "markdown-preview.nvim" then
       -- defer so the plugin is in rtp before calling its autoload function
       vim.schedule(function()
