@@ -1,8 +1,7 @@
 # Neovim configuration  via `vim.pack`
 
-Neovim profile using the built-in `vim.pack` plugin manager from Neovim 0.12.
-Plugin maintenance uses the built-in `:packupdate` and `:packdel` commands from
-Neovim 0.13.
+Neovim 0.13+ profile using the built-in `vim.pack` plugin manager and its
+`:packupdate` and `:packdel` commands.
 
 ### Installation
 

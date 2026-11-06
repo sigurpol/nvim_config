@@ -1,8 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-if vim.fn.has("nvim-0.12") == 0 or vim.pack == nil then
-  vim.notify("nvim requires Neovim 0.12+ with vim.pack", vim.log.levels.ERROR)
+if vim.fn.has("nvim-0.13") == 0 then
+  vim.notify("nvim requires Neovim 0.13+", vim.log.levels.ERROR)
   return
 end
 
